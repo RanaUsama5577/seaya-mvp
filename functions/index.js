@@ -64,8 +64,9 @@ exports.updateDiverDetails = functions.https.onCall(async (data, context) => {
             batch = db.batch();
         }
     })
-    batch.set(db.collection('groups').doc(groupID).collection('messages').doc(),{
-        "id": 'docID',
+    var timestamp = new Date().getTime().toString()
+    batch.set(db.collection('groups').doc(groupID).collection('messages').doc(timestamp),{
+        "id": timestamp,
         "groupID": groupID,
         "fromID": "adminID",
         "fromName": "admin",
