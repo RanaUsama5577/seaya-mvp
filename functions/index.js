@@ -5,7 +5,6 @@ admin.initializeApp();
 const db = admin.firestore()
 
 exports.updateDiverDetails = functions.https.onCall(async (data, context) => {
-    functions.logger.info("Hello logs!", {structuredData: true});
     var batch = db.batch()
     var batchCount = 0
     var s = false
@@ -29,7 +28,7 @@ exports.updateDiverDetails = functions.https.onCall(async (data, context) => {
     })
     obj.forEach(function(item){
         if(leaderID == item[0]){
-            batch.set(db.collection('divesTest').doc(diveID).collection('divers_details').doc(),{
+            batch.set(db.collection('dives').doc(diveID).collection('divers_details').doc(),{
                 "id": item[0],
                 "groupID": groupID,
                 "pesonalNote": "",
@@ -46,7 +45,7 @@ exports.updateDiverDetails = functions.https.onCall(async (data, context) => {
             delete details2['endTank']
             delete details2['airMix']
             console.log("logs",details,details2)
-            batch.set(db.collection('divesTest').doc(diveID).collection('divers_details').doc(),{
+            batch.set(db.collection('dives').doc(diveID).collection('divers_details').doc(),{
                 "id": item[0],
                 "groupID": groupID,
                 "pesonalNote": "",
@@ -65,7 +64,7 @@ exports.updateDiverDetails = functions.https.onCall(async (data, context) => {
         }
     })
     var timestamp = new Date().getTime().toString()
-    batch.set(db.collection('groupsTest').doc(groupID).collection('messages').doc(timestamp),{
+    batch.set(db.collection('groups').doc(groupID).collection('messages').doc(timestamp),{
         "id": timestamp,
         "groupID": groupID,
         "fromID": "adminID",
