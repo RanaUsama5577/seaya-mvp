@@ -83,5 +83,5 @@ exports.updateDiverDetails = functions.https.onCall(async (data, context) => {
     }
     await Promise.all(promises);
     ////Return done
-    return { "data": data ,status:true};
+    return { "data": "successfully added documents" ,status:true};
 });
